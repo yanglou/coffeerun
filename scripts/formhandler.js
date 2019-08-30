@@ -29,10 +29,10 @@
       console.log(data);
 
       fn(data)
-        .then(function () {
+
           this.reset();
           this.elements[0].focus();
-        }.bind(this));
+
     });
   };
 

@@ -21,18 +21,16 @@
   var formHandler = new FormHandler(FORM_SELECTOR);
   var rangeHandler = new RangeHandler(RANGE_SELECTOR);
   var remoteDS = new RemoteDataStore(SERVER_URL);
-  var myTruck = new Truck('ncc-1701', remoteDS);
+  var myTruck = new Truck('ncc-1701', new DataStore()); //remoteDS for websockets server
 
   window.myTruck = myTruck;
   checkList.addClickHandler(myTruck.deliverOrder.bind(myTruck));
   rangeHandler.addRangeHandler(RANGE_VALUE);
   console.log(rangeHandler);
   formHandler.addSubmitHandler(function(data) {
-    return myTruck.createOrder.call(myTruck, data)
-      .then(function () {
-        checkList.addRow.call(checkList, data);
-      }
-      );
+     myTruck.createOrder.call(myTruck, data),
+        checkList.addRow.call(checkList, data)
+
   });
 
   formHandler.addInputHandler(Validation.isCompanyEmail, SilverValidation.isDecaf);
